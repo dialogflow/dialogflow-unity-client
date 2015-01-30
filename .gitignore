@@ -1,0 +1,6 @@
+Testing/bin
+Testing/obj
+*.meta
+obj
+Library/metadata
+Library/ScriptAssemblies
