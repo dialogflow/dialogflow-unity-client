@@ -6,11 +6,9 @@ using fastJSON;
 
 namespace ApiAiSDK.model
 {
-
-
-[Serializable]
-public class AIRequest : QuestionMetadata
-{
+	[Serializable]
+	public class AIRequest : QuestionMetadata
+	{
 		[JsonProperty("query")]
 		public string[] Query { get; set; }
 	
@@ -23,15 +21,15 @@ public class AIRequest : QuestionMetadata
 		[JsonProperty("resetContexts")]
 		public bool ResetContexts { get; set; }
 
-	public AIRequest ()
-	{
-	}
+		public AIRequest ()
+		{
+		}
 
-	public AIRequest (string text)
-	{
-		Query = new string[] { text };
-		Confidence  = new float[] { 1.0f };
-	}
+		public AIRequest (string text)
+		{
+			Query = new string[] { text };
+			Confidence = new float[] { 1.0f };
+		}
 
-}
+	}
 }

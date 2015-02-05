@@ -5,9 +5,9 @@ using fastJSON;
 
 namespace ApiAiSDK.model
 {
-[Serializable]
-public class AIResponse
-{
+	[Serializable]
+	public class AIResponse
+	{
 		[JsonProperty("id")]
 		public string Id { get; set; }
 	
@@ -19,6 +19,6 @@ public class AIResponse
 	
 		[JsonProperty("status")]
 		public Status Status{ get; set; }
-}
+	}
 
 }

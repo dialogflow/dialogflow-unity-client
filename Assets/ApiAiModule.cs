@@ -1,35 +1,45 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections;
 using System.Reflection;
 using fastJSON;
 using ApiAiSDK;
 using ApiAiSDK.model;
 
-public class ApiAiModule : MonoBehaviour {
+public class ApiAiModule : MonoBehaviour
+{
 
 	public Text AnswerTextField{ get; set; }
 
 	private ApiAi apiAi;
 
 	// Use this for initialization
-	void Start () {
+	IEnumerator Start ()
+	{
+
+		yield return Application.RequestUserAuthorization (UserAuthorization.Microphone);
+		if (!Application.HasUserAuthorization (UserAuthorization.Microphone)) {
+			throw new NotSupportedException ("Microphone using not authorized");
+		} 
 
 		const string SUBSCRIPTION_KEY = "cb9693af-85ce-4fbf-844a-5563722fc27f";
 		const string ACCESS_TOKEN = "9586504322be4f8ba31cfdebc40eb76f";
 
-		var config = new AIConfiguration(SUBSCRIPTION_KEY,ACCESS_TOKEN, "en");
+		var config = new AIConfiguration (SUBSCRIPTION_KEY, ACCESS_TOKEN, "en");
 		config.DebugMode = true;
 
-		apiAi = new ApiAi(config);
+		apiAi = new ApiAi (config);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 	
 	}
 
-	public void StartListening(){
+	public void StartListening ()
+	{
 		Debug.Log ("StartListening");
 
 		if (AnswerTextField != null) {
@@ -37,7 +47,8 @@ public class ApiAiModule : MonoBehaviour {
 		}
 	}
 	
-	public void StopListening(){
+	public void StopListening ()
+	{
 		Debug.Log ("StopListening");
 
 		if (AnswerTextField != null) {
@@ -45,28 +56,28 @@ public class ApiAiModule : MonoBehaviour {
 		}
 	}
 
-	public void SendText(string text){
-		Debug.Log(text);
+	public void SendText (string text)
+	{
+		Debug.Log (text);
 
-		Debug.Log(System.Environment.Version);
+		Debug.Log (System.Environment.Version);
 
-		AIResponse response = apiAi.requestText(text);
+		AIResponse response = apiAi.requestText (text);
 
 		if (response != null) {
-			Debug.Log(response.Result.resolvedQuery);
-			var outText = fastJSON.JSON.ToJSON(response, new JSONParameters { 
+			Debug.Log (response.Result.resolvedQuery);
+			var outText = fastJSON.JSON.ToJSON (response, new JSONParameters { 
 				UseExtensions = false,  
 				SerializeNullValues = false,
 				EnableAnonymousTypes = true
 			});
 
-			Debug.Log(outText);
+			Debug.Log (outText);
 
 			AnswerTextField.text = outText;
 
-		}
-		else{
-			Debug.LogError("Response is null");
+		} else {
+			Debug.LogError ("Response is null");
 		}
 
 	}

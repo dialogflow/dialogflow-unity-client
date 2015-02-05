@@ -4,9 +4,9 @@ using fastJSON;
 
 namespace ApiAiSDK.model
 {
-[Serializable]
-public class Result
-{
+	[Serializable]
+	public class Result
+	{
 
 		[JsonProperty("speech")]
 		public String speech{ get; set; }
@@ -20,7 +20,7 @@ public class Result
 		public Result ()
 		{
 		}
-}
+	}
 }
 
 

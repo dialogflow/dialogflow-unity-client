@@ -4,21 +4,22 @@ using ApiAiSDK.model;
 
 namespace ApiAiSDK
 {
-public class ApiAi {
-	private AIConfiguration config;
-
-	private AIDataService dataService;
-
-	public ApiAi (AIConfiguration config)
+	public class ApiAi
 	{
-		this.config = config;
+		private AIConfiguration config;
+		private AIDataService dataService;
 
-		dataService = new AIDataService(config);
+		public ApiAi (AIConfiguration config)
+		{
+			this.config = config;
+
+			dataService = new AIDataService (config);
+		}
+
+		public AIResponse requestText (string text)
+		{
+			return dataService.Request (new AIRequest (text));
+		}
+
 	}
-
-	public AIResponse requestText(string text){
-		return dataService.Request(new AIRequest(text));
-	}
-
-}
 }
