@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Net;
+using System.IO;
 using ApiAiSDK.model;
 
 namespace ApiAiSDK
@@ -16,9 +18,13 @@ namespace ApiAiSDK
 			dataService = new AIDataService (config);
 		}
 
-		public AIResponse requestText (string text)
+		public AIResponse textRequest (string text)
 		{
 			return dataService.Request (new AIRequest (text));
+		}
+
+		public AIResponse voiceRequest(Stream voiceStream){
+			return dataService.VoiceRequest(voiceStream);
 		}
 
 	}

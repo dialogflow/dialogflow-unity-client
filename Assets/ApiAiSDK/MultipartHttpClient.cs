@@ -8,9 +8,8 @@ namespace ApiAiSDK
 {
 	public class MultipartHttpClient
 	{
-
 		private const string delimiter = "--";
-		private string boundary = "SwA" + DateTime.UtcNow.Ticks + "SwA";
+		private string boundary = "SwA" + DateTime.UtcNow.Ticks.ToString("x") + "SwA";
 		private HttpWebRequest request;
 		private BinaryWriter os;
 
@@ -30,19 +29,19 @@ namespace ApiAiSDK
 
 		public void addStringPart(string paramName, string data)
 		{
-			os.Write (delimiter + boundary + "\r\n");
-			os.Write ("Content-Type: application/json\r\n");
-			os.Write ("Content-Disposition: form-data; name=\"" + paramName + "\"\r\n");
-			os.Write ("\r\n" + data + "\r\n");
+			WriteString (delimiter + boundary + "\r\n");
+			WriteString ("Content-Type: application/json\r\n");
+			WriteString ("Content-Disposition: form-data; name=\"" + paramName + "\"\r\n");
+			WriteString ("\r\n" + data + "\r\n");
 		}
 
 		public void addFilePart(string paramName, string fileName, Stream data)
 		{
-			os.Write (delimiter + boundary + "\r\n");
-			os.Write ("Content-Disposition: form-data; name=\"" + paramName + "\"; filename=\"" + fileName + "\"\r\n");
-			os.Write ("Content-Type: audio/wav\r\n");
+			WriteString (delimiter + boundary + "\r\n");
+			WriteString ("Content-Disposition: form-data; name=\"" + paramName + "\"; filename=\"" + fileName + "\"\r\n");
+			WriteString ("Content-Type: audio/wav\r\n");
 
-			os.Write ("\r\n");
+			WriteString ("\r\n");
 
 			int bufferSize = 4096;
 			byte[] buffer = new byte[bufferSize];
@@ -50,28 +49,39 @@ namespace ApiAiSDK
 			int bytesActuallyRead;
 
 			bytesActuallyRead = data.Read (buffer, 0, bufferSize);
-			while (bytesActuallyRead >= 0) {
-				if (bytesActuallyRead > 0) {
-					os.Write (buffer, 0, bytesActuallyRead);
-				}
+			while (bytesActuallyRead > 0) {
+				os.Write (buffer, 0, bytesActuallyRead);
 				bytesActuallyRead = data.Read (buffer, 0, bufferSize);
 			}
 
-			os.Write ("\r\n");
+			WriteString ("\r\n");
 		}
 
 		public void finish()
 		{
-			os.Write (delimiter + boundary + delimiter + "\r\n");
+			WriteString (delimiter + boundary + delimiter + "\r\n");
 			os.Close ();
+		}
+
+		private void WriteString(string str)
+		{
+			os.Write(Encoding.UTF8.GetBytes(str));
 		}
 
 		public string getResponse()
 		{
-			var httpResponse = request.GetResponse () as HttpWebResponse;
-			using (var streamReader = new StreamReader(httpResponse.GetResponseStream())) {
-				var result = streamReader.ReadToEnd ();
-				return result;
+			try {
+				var httpResponse = request.GetResponse () as HttpWebResponse;
+				using (var streamReader = new StreamReader(httpResponse.GetResponseStream())) {
+					var result = streamReader.ReadToEnd ();
+					return result;
+				}
+			} catch (WebException we) {
+				using (var stream = we.Response.GetResponseStream()) {
+					using (var reader = new StreamReader(stream)) {
+						return reader.ReadToEnd ();
+					}
+				}
 			}
 		}
 

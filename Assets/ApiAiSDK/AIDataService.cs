@@ -60,7 +60,7 @@ namespace ApiAiSDK
 				}
 
 			} catch (Exception e) {
-				//Debug.LogException(e);
+				Debug.LogException(e);
 				Console.WriteLine (e);
 			}
 
@@ -105,11 +105,17 @@ namespace ApiAiSDK
 
 				multipartClient.finish();
 
+				Debug.Log("send complete");
+
 				var textJson = multipartClient.getResponse();
+
+				Debug.Log("text response: " + textJson);
+
 				return fastJSON.JSON.ToObject<AIResponse>(textJson);
 
-			} catch (Exception e) {
-				//Debug.LogException(e);
+			} 	
+			catch (Exception e) {
+				Debug.LogException(e);
 				Console.WriteLine (e);
 			}
 
