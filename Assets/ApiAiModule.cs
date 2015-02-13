@@ -11,10 +11,10 @@ using ApiAiSDK.model;
 public class ApiAiModule : MonoBehaviour
 {
 
-	public Text AnswerTextField{ get; set; }
-
+	public Text answerTextField;
 	private ApiAi apiAi;
 	private AudioSource aud;
+	public AudioClip listeningSound;
 	private volatile bool recording = false;
 	BinaryWriter writer;
 	FileStream fs;
@@ -45,12 +45,17 @@ public class ApiAiModule : MonoBehaviour
 	
 	}
 
+	public void PluginInit()
+	{
+
+	}
+
 	public void StartListening()
 	{
 		Debug.Log ("StartListening");
 
-		if (AnswerTextField != null) {
-			AnswerTextField.text = "Listening...";
+		if (answerTextField != null) {
+			answerTextField.text = "Listening...";
 		}
 
 		foreach (var mic in Microphone.devices) {
@@ -59,8 +64,13 @@ public class ApiAiModule : MonoBehaviour
 			Debug.Log (mic + ": " + min + " - " + max);
 		}
 
+
+
 		aud = GetComponent<AudioSource> ();
-		aud.clip = Microphone.Start (null, true, 20, 16000);
+
+		aud.PlayOneShot (listeningSound);
+
+		//aud.clip = Microphone.Start (null, true, 20, 16000);
 
 		recording = true;
 
@@ -74,8 +84,8 @@ public class ApiAiModule : MonoBehaviour
 		recording = false;
 
 
-		if (AnswerTextField != null) {
-			AnswerTextField.text = "";
+		if (answerTextField != null) {
+			answerTextField.text = "";
 		}
 
 		try {
@@ -89,50 +99,26 @@ public class ApiAiModule : MonoBehaviour
 			Debug.Log ("channels:" + aud.clip.channels);
 			Debug.Log ("freq:" + aud.clip.frequency);
 
-//			Debug.Log("f: " + samples[10] + " " + samples[1000] + " " + samples[2319]
-//			          + " " + samples[55777] + " " + samples[112554]);
-
-			var trimmedSamples = TrimSilence (samples);
-
-			if (trimmedSamples != null) {
-
-				var pcm16 = ConvertIeeeToPcm16 (trimmedSamples);
-				var bytes = ConvertArrayShortToBytes (pcm16);
-				
-				//				StartSoundFile ();
-//				
-//
-
-//				writer.Write (bytes);
-//
-//				StopSoundFile ();
-
-				Debug.Log ("size: " + bytes.Length);
-
-				var voiceStream = new MemoryStream (bytes);
-				voiceStream.Seek (0, SeekOrigin.Begin);
+		
 						
-				var aiResponse = apiAi.voiceRequest (voiceStream);
+			var aiResponse = apiAi.voiceRequest (samples);
 
-				if (aiResponse != null) {
-					Debug.Log (aiResponse.Result.resolvedQuery);
-					var outText = fastJSON.JSON.ToJSON (aiResponse, 
+			if (aiResponse != null) {
+				Debug.Log (aiResponse.Result.resolvedQuery);
+				var outText = fastJSON.JSON.ToJSON (aiResponse, 
 							new JSONParameters { 
 								UseExtensions = false,  
 								SerializeNullValues = false,
 								EnableAnonymousTypes = true
 							});
 						
-					Debug.Log (outText);
+				Debug.Log (outText);
 						
-					AnswerTextField.text = outText;
+				answerTextField.text = outText;
 						
-				} else {
-					Debug.LogError ("Response is null");
-				}
-
+			} else {
+				Debug.LogError ("Response is null");
 			}
-
 
 		} catch (Exception ex) {
 			Debug.LogException (ex);
@@ -150,75 +136,6 @@ public class ApiAiModule : MonoBehaviour
 //		}
 //	}
 
-	private float[] TrimSilence(float[] samples)
-	{
-		//return null;
-
-		float min = 0.000001f;
-
-		int startIndex = 0;
-		int endIndex = samples.Length;
-
-		for (int i = 0; i < samples.Length; i++) {
-
-			//Debug.Log ("f: " + samples [i]);
-
-			if (Math.Abs (samples [i]) > min) {
-				startIndex = i;
-				break;
-			}
-		}
-
-		Debug.Log ("startIndex: " + startIndex);
-		
-
-		for (int i = samples.Length - 1; i > 0; i--) {
-			if (Math.Abs (samples [i]) > min) {
-				endIndex = i;
-				break;
-			}
-		}
-
-		Debug.Log ("endIndex: " + endIndex);
-		
-
-		if (endIndex <= startIndex) {
-			return null;
-		}
-
-		var result = new float[endIndex - startIndex];
-		Array.Copy (samples, startIndex, result, 0, endIndex - startIndex);
-		return result;
-
-	}
-		
-	public static byte[] ConvertArrayShortToBytes(short[] array)
-	{
-		Debug.Log ("ConvertArrayShortToBytes: " + array.Length);
-
-		byte[] numArray = new byte[array.Length * 2];
-		Buffer.BlockCopy ((Array)array, 0, (Array)numArray, 0, numArray.Length);
-		return numArray;
-	}
-
-	public static short[] ConvertIeeeToPcm16(float[] source)
-	{
-		Debug.Log ("ConvertIeeeToPcm16: " + source.Length);
-
-		short[] resultBuffer = new short[source.Length];
-		for (int i = 0; i < source.Length; i++) {
-			float f = source [i] * 32768f;
-
-			if ((double)f > (double)short.MaxValue)
-				f = (float)short.MaxValue;
-			else if ((double)f < (double)short.MinValue)
-				f = (float)short.MinValue;
-			resultBuffer [i] = Convert.ToInt16 (f);
-		}
-
-		return resultBuffer;
-	}
-	
 	private void StartSoundFile()
 	{
 		fs = new FileStream ("recorded_sound.raw", FileMode.Create);
@@ -254,7 +171,7 @@ public class ApiAiModule : MonoBehaviour
 
 			Debug.Log (outText);
 
-			AnswerTextField.text = outText;
+			answerTextField.text = outText;
 
 		} else {
 			Debug.LogError ("Response is null");

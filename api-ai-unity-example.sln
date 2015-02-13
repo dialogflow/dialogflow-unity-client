@@ -1,9 +1,7 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{45A17122-20EC-1E17-ADB5-C4501FB0AE71}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{4A74BD6F-8C81-4252-8A98-203663D27DA0}"
+# Visual Studio 2008
+
+Project("{386615F4-6515-A27D-A436-BEDCD55A1B6B}") = "api-ai-unity-example", "Assembly-CSharp.csproj", "{45A17122-20EC-1E17-ADB5-C4501FB0AE71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +13,22 @@ Global
 		{45A17122-20EC-1E17-ADB5-C4501FB0AE71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45A17122-20EC-1E17-ADB5-C4501FB0AE71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45A17122-20EC-1E17-ADB5-C4501FB0AE71}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4A74BD6F-8C81-4252-8A98-203663D27DA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A74BD6F-8C81-4252-8A98-203663D27DA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A74BD6F-8C81-4252-8A98-203663D27DA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A74BD6F-8C81-4252-8A98-203663D27DA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+																			GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
-		$1.inheritsSet = null
+		$1.FileWidth = 120
+		$1.TabsToSpaces = False
+		$1.EolMarker = Unix
+		$1.inheritsSet = VisualStudio
+		$1.inheritsScope = text/plain
 		$1.scope = text/x-csharp
 		$0.CSharpFormattingPolicy = $2
+		$2.BeforeMethodDeclarationParentheses = False
 		$2.inheritsSet = Mono
 		$2.inheritsScope = text/x-csharp
 		$2.scope = text/x-csharp
@@ -38,7 +40,5 @@ Global
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
+
 EndGlobal
