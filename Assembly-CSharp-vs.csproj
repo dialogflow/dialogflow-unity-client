@@ -47,21 +47,18 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\ApiAiModule.cs" />
-     <Compile Include="Assets\ApiAiSDK\AIConfiguration.cs" />
-     <Compile Include="Assets\ApiAiSDK\AIDataService.cs" />
-     <Compile Include="Assets\ApiAiSDK\ApiAi.cs" />
-     <Compile Include="Assets\ApiAiSDK\MultipartHttpClient.cs" />
-     <Compile Include="Assets\ApiAiSDK\model\AIRequest.cs" />
-     <Compile Include="Assets\ApiAiSDK\model\AIResponse.cs" />
-     <Compile Include="Assets\ApiAiSDK\model\QuestionMetadata.cs" />
-     <Compile Include="Assets\ApiAiSDK\model\Result.cs" />
-     <Compile Include="Assets\ApiAiSDK\model\Status.cs" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>
+ <Reference Include="ApiAiSDK">
+ <HintPath>/Users/xvir/Projects/experiments/api-ai-unity-example/Assets/ApiAiSDK/ApiAiSDK.dll</HintPath>
+ </Reference>
+ <Reference Include="ApiAiSDK.Unity">
+ <HintPath>/Users/xvir/Projects/experiments/api-ai-unity-example/Assets/ApiAiSDK/ApiAiSDK.Unity.dll</HintPath>
+ </Reference>
  <Reference Include="fastJSON">
- <HintPath>/Users/xvir/Projects/experiments/api-ai-unity-example/Assets/ApiAiSDK/lib/fastJSON.dll</HintPath>
+ <HintPath>/Users/xvir/Projects/experiments/api-ai-unity-example/Assets/ApiAiSDK/fastJSON.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
