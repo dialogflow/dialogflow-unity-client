@@ -94,7 +94,9 @@ public class ApiAiModule : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		
+		if (apiAiUnity != null) {
+			apiAiUnity.Update();
+		}
 	}
 	
 	public void PluginInit()
