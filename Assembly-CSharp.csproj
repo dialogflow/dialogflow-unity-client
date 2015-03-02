@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_4_6_1;UNITY_4_6;UNITY_ANDROID;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;UNITY_ANDROID_API;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_OSX;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_6_3;UNITY_4_6;UNITY_64;UNITY_STANDALONE_OSX;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_IL2CPP;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;UNITY5_SCRIPTING_IN_UNITY4;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_GAMECENTER;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_MONO;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_OSX</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -46,19 +46,20 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ApiAiModule.cs" />
+     <Compile Include="Assets\ApiAiSDK\AndroidRecognitionResult.cs" />
+     <Compile Include="Assets\ApiAiSDK\AndroidRecognizer.cs" />
+     <Compile Include="Assets\ApiAiSDK\ApiAiUnity.cs" />
+     <Compile Include="Assets\ApiAiSDK\ResultWrapper.cs" />
+     <Compile Include="Assets\Examples\ApiAiModule.cs" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
  <Reference Include="UnityEngine.UI">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/4.6.3/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="ApiAiSDK">
- <HintPath>/Users/xvir/Projects/experiments/api-ai-unity-example/Assets/ApiAiSDK/ApiAiSDK.dll</HintPath>
- </Reference>
- <Reference Include="ApiAiSDK.Unity">
- <HintPath>/Users/xvir/Projects/experiments/api-ai-unity-example/Assets/ApiAiSDK/ApiAiSDK.Unity.dll</HintPath>
+ <HintPath>/Users/xvir/Projects/experiments/api-ai-unity-example/Assets/ApiAiSDK/lib/ApiAiSDK.dll</HintPath>
  </Reference>
  <Reference Include="fastJSON">
- <HintPath>/Users/xvir/Projects/experiments/api-ai-unity-example/Assets/ApiAiSDK/fastJSON.dll</HintPath>
+ <HintPath>/Users/xvir/Projects/experiments/api-ai-unity-example/Assets/ApiAiSDK/lib/fastJSON.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -69,5 +70,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  
+  <ProjectExtensions xmlns="http://schemas.microsoft.com/developer/msbuild/2003"><MonoDevelop><Properties><Policies><StandardHeader Text="//&#xA;// API.AI Unity SDK Sample&#xA;// =================================================&#xA;//&#xA;// Copyright (C) 2015 by Speaktoit, Inc. (https://www.speaktoit.com)&#xA;// https://www.api.ai&#xA;//&#xA;// ***********************************************************************************************************************&#xA;//&#xA;// Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not use this file except in compliance with&#xA;// the License. You may obtain a copy of the License at&#xA;//&#xA;//     http://www.apache.org/licenses/LICENSE-2.0&#xA;//&#xA;// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on&#xA;// an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the&#xA;// specific language governing permissions and limitations under the License.&#xA;//&#xA;// ***********************************************************************************************************************&#xA;" IncludeInNewFiles="True" /></Policies></Properties></MonoDevelop></ProjectExtensions>
+
 </Project>
