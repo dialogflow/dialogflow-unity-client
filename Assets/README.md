@@ -1,4 +1,4 @@
-# api-ai-unity-sample
+# api-ai-unity
 
 The API.AI Unity Plugin makes it easy to integrate the API.AI natural language processing API (http://api.ai) into your Unity project. API.AI allows using voice commands and integration with dialog scenarios defined for a particular agent in API.AI.
 
