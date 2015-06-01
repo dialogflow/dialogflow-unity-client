@@ -20,6 +20,7 @@
 
 using System;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace ApiAiSDK.Unity.Android
 {
@@ -50,7 +51,7 @@ namespace ApiAiSDK.Unity.Android
 		public AndroidRecognitionResult GetResult()
 		{
 			var recognitionResultString = resultObject.Call<string>("getResult");
-			return fastJSON.JSON.ToObject<AndroidRecognitionResult>(recognitionResultString);
+            return JsonConvert.DeserializeObject<AndroidRecognitionResult>(recognitionResultString);
 		}
 	}
 #endif

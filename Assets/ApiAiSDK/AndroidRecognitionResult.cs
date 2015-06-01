@@ -19,13 +19,13 @@
 // ***********************************************************************************************************************
 
 using System;
-using fastJSON;
+using Newtonsoft.Json;
 
 namespace ApiAiSDK.Unity.Android
 {
 
 #if UNITY_ANDROID
-	[Serializable]
+    [JsonObject]
 	public class AndroidRecognitionResult
 	{
 		[JsonProperty("status")]

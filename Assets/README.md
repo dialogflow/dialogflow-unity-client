@@ -28,6 +28,14 @@ Library provides simple programming interface for making text and voice requests
     }
     ```
 
+* First, add API.AI usings
+    
+    ```csharp
+    using ApiAiSDK;
+    using ApiAiSDK.Model;
+    using ApiAiSDK.Unity;
+    ```
+
 * Add private field to your module to keep reference to the SDK object
 
     ```csharp

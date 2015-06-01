@@ -6,3 +6,5 @@ Library/metadata
 Library/ScriptAssemblies
 Temp
 Builds
+Library/ShaderCache
+Library/shadercompiler*.log

@@ -20,7 +20,7 @@
 
 using System;
 using UnityEngine;
-using fastJSON;
+using Newtonsoft.Json;
 
 namespace ApiAiSDK.Unity.Android
 {

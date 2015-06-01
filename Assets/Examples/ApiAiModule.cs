@@ -24,10 +24,11 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Reflection;
-using fastJSON;
 using ApiAiSDK;
 using ApiAiSDK.Model;
 using ApiAiSDK.Unity;
+using Newtonsoft.Json;
+using System.Net;
 
 public class ApiAiModule : MonoBehaviour
 {
@@ -42,6 +43,11 @@ public class ApiAiModule : MonoBehaviour
     int blocksWrote;
     int counter;
 
+    private readonly JsonSerializerSettings jsonSettings = new JsonSerializerSettings
+    { 
+        NullValueHandling = NullValueHandling.Ignore,
+    };
+
     // Use this for initialization
     IEnumerator Start()
     {
@@ -51,6 +57,11 @@ public class ApiAiModule : MonoBehaviour
         {
             throw new NotSupportedException("Microphone using not authorized");
         }
+
+        ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) =>
+        {
+            return true;
+        };
 
         const string SUBSCRIPTION_KEY = "cb9693af-85ce-4fbf-844a-5563722fc27f";
         const string ACCESS_TOKEN = "3485a96fb27744db83e78b8c4bc9e7b7";
@@ -70,13 +81,7 @@ public class ApiAiModule : MonoBehaviour
         if (aiResponse != null)
         {
             Debug.Log(aiResponse.Result.ResolvedQuery);
-            var outText = fastJSON.JSON.ToJSON(aiResponse,
-                                               new JSONParameters
-                                               {
-                                                    UseExtensions = false,
-                                                    SerializeNullValues = false,
-                                                    EnableAnonymousTypes = true
-                                               });
+            var outText = JsonConvert.SerializeObject(aiResponse, jsonSettings);
             
             Debug.Log(outText);
             
@@ -151,12 +156,7 @@ public class ApiAiModule : MonoBehaviour
         if (response != null)
         {
             Debug.Log("Resolved query: " + response.Result.ResolvedQuery);
-            var outText = fastJSON.JSON.ToJSON(response, new JSONParameters
-            {
-                UseExtensions = false,
-                SerializeNullValues = false,
-                EnableAnonymousTypes = true
-            });
+            var outText = JsonConvert.SerializeObject(response, jsonSettings);
 
             Debug.Log("Result: " + outText);
 

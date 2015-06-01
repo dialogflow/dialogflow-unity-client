@@ -94,7 +94,8 @@ namespace ApiAiSDK.Unity
 
 #if UNITY_ANDROID
 		private void UpdateAndroidResult(){
-			var wrapper = androidResultWrapper;
+            Debug.Log("UpdateAndroidResult");
+            var wrapper = androidResultWrapper;
 			if (wrapper.IsReady) {
 				var recognitionResult = wrapper.GetResult();
 				androidResultWrapper = null;
