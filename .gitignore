@@ -8,3 +8,5 @@ Temp
 Builds
 Library/ShaderCache
 Library/shadercompiler*.log
+ios-build
+*.apk

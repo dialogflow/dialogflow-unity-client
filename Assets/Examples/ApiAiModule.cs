@@ -96,6 +96,7 @@ public class ApiAiModule : MonoBehaviour
     void HandleOnError(object sender, AIErrorEventArgs e)
     {
         Debug.LogException(e.Exception);
+        Debug.Log(e.ToString());
         answerTextField.text = e.Exception.Message;
     }
     

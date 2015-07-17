@@ -23,6 +23,8 @@ using UnityEngine;
 using ApiAiSDK;
 using ApiAiSDK.Model;
 using System.Threading;
+using System.Linq;
+using System.ComponentModel;
 
 #if UNITY_ANDROID
 using ApiAiSDK.Unity.Android;
@@ -56,10 +58,6 @@ namespace ApiAiSDK.Unity
 		public void Initialize(AIConfiguration config)
 		{
 			this.config = config;
-
-#if UNITY_IPHONE
-            config.JsonProcessingWithoutDynamicCode = true;
-#endif
 
 			apiAi = new ApiAi(this.config);
 
