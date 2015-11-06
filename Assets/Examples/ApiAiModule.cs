@@ -38,10 +38,6 @@ public class ApiAiModule : MonoBehaviour
     private ApiAiUnity apiAiUnity;
     private AudioSource aud;
     public AudioClip listeningSound;
-    BinaryWriter writer;
-    FileStream fs;
-    int blocksWrote;
-    int counter;
 
     private readonly JsonSerializerSettings jsonSettings = new JsonSerializerSettings
     { 
