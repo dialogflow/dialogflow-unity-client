@@ -153,16 +153,21 @@ namespace ApiAiSDK.Unity
 					}
 				}
 
-				if (samples != null) {
-					try {
-						var aiResponse = apiAi.VoiceRequest(samples);
-						ProcessResult(aiResponse);	
-					} catch (Exception ex) {
-						FireOnError(ex);
-					}
-				}
+                new Thread(StartVoiceRequest).Start(samples);
 			}
 		}
+
+        private void StartVoiceRequest(object parameter){
+            float[] samples = (float[])parameter;
+            if (samples != null) {
+                try {
+                    var aiResponse = apiAi.VoiceRequest(samples);
+                    ProcessResult(aiResponse);  
+                } catch (Exception ex) {
+                    FireOnError(ex);
+                }
+            }
+        }
 
 		private void ProcessResult(AIResponse aiResponse)
 		{

@@ -29,6 +29,7 @@ using ApiAiSDK.Model;
 using ApiAiSDK.Unity;
 using Newtonsoft.Json;
 using System.Net;
+using System.Collections.Generic;
 
 public class ApiAiModule : MonoBehaviour
 {
@@ -43,6 +44,8 @@ public class ApiAiModule : MonoBehaviour
     { 
         NullValueHandling = NullValueHandling.Ignore,
     };
+
+    private readonly Queue<Action> ExecuteOnMainThread = new Queue<Action>();
 
     // Use this for initialization
     IEnumerator Start()
@@ -73,27 +76,32 @@ public class ApiAiModule : MonoBehaviour
 
     void HandleOnResult(object sender, AIResponseEventArgs e)
     {
-        var aiResponse = e.Response;
-        if (aiResponse != null)
-        {
-            Debug.Log(aiResponse.Result.ResolvedQuery);
-            var outText = JsonConvert.SerializeObject(aiResponse, jsonSettings);
-            
-            Debug.Log(outText);
-            
-            answerTextField.text = outText;
-            
-        } else
-        {
-            Debug.LogError("Response is null");
-        }
+        RunInMainThread(() => {
+            var aiResponse = e.Response;
+            if (aiResponse != null)
+            {
+                Debug.Log(aiResponse.Result.ResolvedQuery);
+                var outText = JsonConvert.SerializeObject(aiResponse, jsonSettings);
+                
+                Debug.Log(outText);
+                
+                answerTextField.text = outText;
+                
+            } else
+            {
+                Debug.LogError("Response is null");
+            }
+        });
+
     }
     
     void HandleOnError(object sender, AIErrorEventArgs e)
     {
-        Debug.LogException(e.Exception);
-        Debug.Log(e.ToString());
-        answerTextField.text = e.Exception.Message;
+        RunInMainThread(() => {
+            Debug.LogException(e.Exception);
+            Debug.Log(e.ToString());
+            answerTextField.text = e.Exception.Message;
+        });
     }
     
     // Update is called once per frame
@@ -103,8 +111,19 @@ public class ApiAiModule : MonoBehaviour
         {
             apiAiUnity.Update();
         }
+
+        // dispatch stuff on main thread
+        while (ExecuteOnMainThread.Count > 0)
+        {
+            ExecuteOnMainThread.Dequeue().Invoke();
+        }
     }
-    
+
+    private void RunInMainThread(Action action)
+    {
+        ExecuteOnMainThread.Enqueue(action);
+    }
+
     public void PluginInit()
     {
         
