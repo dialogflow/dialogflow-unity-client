@@ -92,7 +92,6 @@ public class ApiAiModule : MonoBehaviour
                 Debug.LogError("Response is null");
             }
         });
-
     }
     
     void HandleOnError(object sender, AIErrorEventArgs e)
