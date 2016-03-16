@@ -139,7 +139,7 @@ public class ApiAiModule : MonoBehaviour
             
         aud = GetComponent<AudioSource>();
         apiAiUnity.StartListening(aud);
-    
+
     }
     
     public void StopListening()
