@@ -152,17 +152,21 @@ namespace ApiAiSDK.Unity
 						audioSource = null;
 					}
 				}
-
+                Debug.Log("Main: " + Thread.CurrentThread.ManagedThreadId); 
                 new Thread(StartVoiceRequest).Start(samples);
 			}
 		}
 
         private void StartVoiceRequest(object parameter){
+            Debug.Log("BG: " + Thread.CurrentThread.ManagedThreadId);
             float[] samples = (float[])parameter;
             if (samples != null) {
                 try {
+                    Debug.Log("BG: " + Thread.CurrentThread.ManagedThreadId);
                     var aiResponse = apiAi.VoiceRequest(samples);
+                    Debug.Log("BG: " + Thread.CurrentThread.ManagedThreadId);
                     ProcessResult(aiResponse);  
+                    Debug.Log("BG: " + Thread.CurrentThread.ManagedThreadId);
                 } catch (Exception ex) {
                     FireOnError(ex);
                 }
