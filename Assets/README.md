@@ -42,16 +42,15 @@ Library provides simple programming interface for making text and voice requests
         private ApiAiUnity apiAiUnity;
     ```
 
-* On the start of your module ApiAiUnity object must be initialized. Required data for initialization is keys from your development console on the api.ai website and one of supported languages
+* On the start of your module ApiAiUnity object must be initialized. Required data for initialization is client access token from your development console on the api.ai website and one of supported languages
 
     ```csharp
     // Use this for initialization
     void Start()
     {
-        const string SUBSCRIPTION_KEY = "your_subscription_key";
         const string ACCESS_TOKEN = "your_access_token";
 
-        var config = new AIConfiguration(SUBSCRIPTION_KEY, ACCESS_TOKEN, SupportedLanguage.English);
+        var config = new AIConfiguration(ACCESS_TOKEN, SupportedLanguage.English);
 
         apiAiUnity = new ApiAiUnity();
         apiAiUnity.Initialize(config);

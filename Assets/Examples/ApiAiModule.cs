@@ -61,11 +61,10 @@ public class ApiAiModule : MonoBehaviour
         {
             return true;
         };
-
-        const string SUBSCRIPTION_KEY = "cb9693af-85ce-4fbf-844a-5563722fc27f";
+            
         const string ACCESS_TOKEN = "3485a96fb27744db83e78b8c4bc9e7b7";
 
-        var config = new AIConfiguration(SUBSCRIPTION_KEY, ACCESS_TOKEN, SupportedLanguage.English);
+        var config = new AIConfiguration(ACCESS_TOKEN, SupportedLanguage.English);
 
         apiAiUnity = new ApiAiUnity();
         apiAiUnity.Initialize(config);
