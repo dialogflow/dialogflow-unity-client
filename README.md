@@ -1,4 +1,8 @@
-# Api.ai: Unity Plugin
+# DEPRECATED Api.ai: Unity Plugin
+
+| Deprecated |
+|-------|
+| This Dialogflow client library and Dialogflow API V1 [have been deprecated and will be shut down on October 23th, 2019](https://blog.dialogflow.com/post/migrate-to-dialogflow-api-v2/). Please [migrate to Dialogflow API V2](https://cloud.google.com/dialogflow-enterprise/docs/migrating). |
 
 The Api.ai Unity Plugin makes it easy to integrate the [Api.ai natural language processing API](http://api.ai) into your Unity project. Api.ai allows the use of voice commands and integration with dialog scenarios defined for a particular agent in Api.ai.
 
